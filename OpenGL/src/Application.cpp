@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 int main()
@@ -7,9 +8,11 @@ int main()
 	GLFWwindow* window;
 
 	/* Initialize the library */
-	if (!glfwInit())
+	if (!glfwInit()) {
+		std::cout << "Error GLFW not ok" << std::endl;
 		return -1;
-
+	}
+		
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
 	if (!window)
@@ -21,6 +24,14 @@ int main()
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
+
+	std::cout << glGetString(GL_VERSION) << std::endl;
+
+	if (glewInit() != GLEW_OK) {
+		std::cout << "Error GLEW not ok" << std::endl;
+		return -1;
+	}
+		
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
